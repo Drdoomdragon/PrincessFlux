@@ -13,15 +13,15 @@ public class Enemy_Trigger : MonoBehaviour {
 	}
 	
 	public void OnTriggerEnter2D(Collider2D other){
-		if (other.gameObject.tag == "player"){
-			//Debug.Log("ayylmao");
+		if (other.gameObject.tag == "Player"){
+			Debug.Log("ayylmao");
 			enemy.active = true;
 		}
 	}
 	
 	public void OnTriggerExit2D(Collider2D other){
-		if (other.gameObject.tag == "player"){
-			//Debug.Log("Goodbye");
+		if (other.gameObject.tag == "Player"){
+			Debug.Log("Goodbye");
 			enemy.active = false;
 		}
 	}
