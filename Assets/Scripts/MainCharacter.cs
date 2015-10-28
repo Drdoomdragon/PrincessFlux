@@ -7,6 +7,11 @@ public class MainCharacter : MonoBehaviour {
     private Rigidbody2D rb2D;
     private float inverseMoveTime;
     private float speed;
+	
+	//cooldown for when the player can fire their standard projectile
+	float p_cooldown = 0.5f;
+	
+	public GameObject projectile;
 
     void Start () {
         boxCollider = GetComponent<BoxCollider2D>();
@@ -25,5 +30,26 @@ public class MainCharacter : MonoBehaviour {
 
         Vector3 move = new Vector3(horizontal-vertical, (horizontal+vertical)/2, 0);
         transform.position += move * speed * Time.deltaTime;
+		
+		if(Input.GetButtonDown("Fire1")&&p_cooldown<0){
+			fire();
+			p_cooldown = 0.5f;
+		}
+		
+		p_cooldown-=Time.deltaTime;
     }
+	
+	//used for dealing with physics stuff, anything that affects a rigidbody
+	void FixedUpdate(){
+		
+		
+	}
+	
+	void fire(){
+		Debug.Log("pew, pew");
+		//set it to instantiate further in front the player later
+		Instantiate(projectile,transform.position,
+			Quaternion.identity);
+	}
+	
 }
