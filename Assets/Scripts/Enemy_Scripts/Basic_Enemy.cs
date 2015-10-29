@@ -23,7 +23,7 @@ public class Basic_Enemy : MonoBehaviour {
 		if(active){
 			//Debug.Log("success");
 			//player has entered the trigger zone, move from passive to active
-			animator.Play("blob_transform");
+			animator.Play("alerted");
 		}
 		else{
 			//passive AI behaviour 
