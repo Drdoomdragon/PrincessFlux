@@ -42,18 +42,26 @@ public class Basic_Enemy : MonoBehaviour {
 		
 	}
 	
+	//head to each point in the patrol route and wait for a moment before heading to the
+	//next spot
 	IEnumerator Patrol(){
 		do{
 			foreach(Transform location in locations){
+				//call the rouge coroutine then return here when it has reached
+				//the target point
 				yield return StartCoroutine(Route(location));
-				if(active)
-					break;
+				if(active){
+					//begin to chase the player
+					//break; if you break, use the restart function
+					yield return StartCoroutine(Chase(target));
+				}
 				yield return new WaitForSeconds(1f);
 				
 			}
 		}while(!active);
 	}
 	
+	//look into using raycasting for Route and Chase
 	IEnumerator Route(Transform location){
 		while(transform.position!=location.position){
 			transform.position = Vector2.MoveTowards(transform.position, location.position,
@@ -64,6 +72,17 @@ public class Basic_Enemy : MonoBehaviour {
 		}
 	}
 	
+	IEnumerator Chase(Transform location){
+		while(transform.position!=location.position){
+			transform.position = Vector2.MoveTowards(transform.position, location.position,
+			movespeed*Time.deltaTime);
+			if(!active)
+				break;
+			yield return null; //call next frame, return here
+		}
+	}
+	
+	//for later use maybe
 	public void restartPatrol(){
 		StartCoroutine(Patrol());
 	}

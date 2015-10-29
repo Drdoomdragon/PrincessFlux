@@ -23,7 +23,7 @@ public class Enemy_Trigger : MonoBehaviour {
 		if (other.gameObject.tag == "Player"){
 			Debug.Log("Goodbye");
 			enemy.active = false;
-			enemy.restartPatrol();
+			//enemy.restartPatrol();
 		}
 	}
 }
