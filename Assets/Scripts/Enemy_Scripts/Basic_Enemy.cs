@@ -64,7 +64,7 @@ public class Basic_Enemy : MonoBehaviour {
 	//look into using raycasting for Route and Chase
 	IEnumerator Route(Transform location){
 		while(transform.position!=location.position){
-			transform.position = Vector2.MoveTowards(transform.position, location.position,
+			transform.position = Vector3.MoveTowards(transform.position, location.position,
 			movespeed*Time.deltaTime);
 			if(active)
 				break;
@@ -74,7 +74,7 @@ public class Basic_Enemy : MonoBehaviour {
 	
 	IEnumerator Chase(Transform location){
 		while(transform.position!=location.position){
-			transform.position = Vector2.MoveTowards(transform.position, location.position,
+			transform.position = Vector3.MoveTowards(transform.position, location.position,
 			movespeed*Time.deltaTime);
 			if(!active)
 				break;
