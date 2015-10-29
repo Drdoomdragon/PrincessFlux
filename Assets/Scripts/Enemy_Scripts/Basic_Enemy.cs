@@ -4,17 +4,20 @@ using System.Collections;
 public class Basic_Enemy : MonoBehaviour {
 	
 	public Transform target;
+	public Transform[] locations;
 	public Animator animator;
 	
 	public bool active = false;
 	
 	//health and motion speed of the enemy
 	public int hp = 3;
-	float movespeed = 5;
+	float movespeed = 0.5f;
+	float dashspeed = 1.5f;
 	
 	// Use this for initialization
 	void Start () {
 		animator = this.GetComponent<Animator>();
+		StartCoroutine(Patrol());
 	}
 	
 	// Update is called once per frame
@@ -24,14 +27,47 @@ public class Basic_Enemy : MonoBehaviour {
 			//Debug.Log("success");
 			//player has entered the trigger zone, move from passive to active
 			animator.Play("alerted");
+			if(transform.position!=target.position){
+			transform.position = Vector2.MoveTowards(transform.position, target.position,
+			dashspeed*Time.deltaTime);
+			}
 		}
 		else{
 			//passive AI behaviour 
 			animator.Play("idle");
 		}
-		
+	}
+	
+	void FixedUpdate(){
 		
 	}
+	
+	IEnumerator Patrol(){
+		do{
+			foreach(Transform location in locations){
+				yield return StartCoroutine(Route(location));
+				if(active)
+					break;
+				yield return new WaitForSeconds(1f);
+				
+			}
+		}while(!active);
+	}
+	
+	IEnumerator Route(Transform location){
+		while(transform.position!=location.position){
+			transform.position = Vector2.MoveTowards(transform.position, location.position,
+			movespeed*Time.deltaTime);
+			if(active)
+				break;
+			yield return null; //call next frame, return here
+		}
+	}
+	
+	public void restartPatrol(){
+		StartCoroutine(Patrol());
+	}
+	
 	
 	//when something collides with the enemy, if the tag is weapon or projectile
 	//subtract hp
