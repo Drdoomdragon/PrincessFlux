@@ -19,8 +19,7 @@ public class Lever : MonoBehaviour {
 	void Start () {
 		animator = this.GetComponent<Animator>();
 		spriteR = GetComponent<SpriteRenderer>();
-		if(spriteR.sprite == null)
-			spriteR.sprite = up;
+		spriteR.sprite = up;
 	}
 	
 	// Update is called once per frame
@@ -28,15 +27,19 @@ public class Lever : MonoBehaviour {
 		if(cooldown>1&&close&&Input.GetButtonDown("Fire1")){
 			active=!active;
 			StartCoroutine(ChangeSprite());
+			cooldown = 0;
 		}
 		cooldown+=Time.deltaTime;
+		if(cooldown>1.1f){
+			cooldown = 1.1f;
+		}
 	}
 	
 	//call once player hits switch
 	IEnumerator ChangeSprite(){
 		if(spriteR.sprite == up){
 			animator.Play("Pull_down");
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(0.5f);
 			spriteR.sprite = down;
 		}
 		else{
