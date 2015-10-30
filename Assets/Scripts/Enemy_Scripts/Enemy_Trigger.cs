@@ -16,7 +16,7 @@ public class Enemy_Trigger : MonoBehaviour {
 	void FixedUpdate(){
 		
 		}
-	
+		
 	public void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.tag == "Player"){
 			Debug.Log("ayylmao");
@@ -28,7 +28,16 @@ public class Enemy_Trigger : MonoBehaviour {
 		if (other.gameObject.tag == "Player"){
 			Debug.Log("Goodbye");
 			enemy.active = false;
-			//enemy.restartPatrol();
 		}
 	}
+	/*
+	void OnTriggerStay2D(Collider2D other){
+		if(other.gameObject.tag == "Player"){
+			RaycastHit2D hit = Physics2D.Raycast(transform.position, other.transform.position);
+			if(hit.collider.gameObject.tag == "Player"){
+				Debug.Log("I FOUND YOU!");
+				enemy.active = true;
+			}
+		}
+	}*/
 }
