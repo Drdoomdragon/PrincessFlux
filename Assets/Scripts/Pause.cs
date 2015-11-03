@@ -4,6 +4,8 @@ using System.Collections;
 public class Pause : MonoBehaviour {
 	bool paused = false;
 	
+	public GameObject[] menu_items;
+	
 	//when pause put the items and menu background active
 	//toggle on and off, paused and unpaused
 	
@@ -12,10 +14,13 @@ public class Pause : MonoBehaviour {
 		if(Input.GetKeyUp(KeyCode.Escape))
 		{
 			paused = !paused;
+			foreach(GameObject item in menu_items){
+				item.SetActive(paused);
+			}
 		}
 
 		if(paused){
-			Time.timeScale = 0;
+			Time.timeScale = 0.25f;
 			if (Input.GetKeyUp(KeyCode.Backspace)){
 				Application.Quit();
 				}
