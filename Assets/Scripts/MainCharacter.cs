@@ -4,7 +4,8 @@ using System.Collections;
 public class MainCharacter : MonoBehaviour {
 
     private BoxCollider2D boxCollider;
-    private Rigidbody2D rb2D;
+    private Animator animator;
+
     private float inverseMoveTime;
     private float speed;
 	
@@ -15,6 +16,7 @@ public class MainCharacter : MonoBehaviour {
 
     void Start () {
         boxCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
         speed = 1.0F;
     }
 	
@@ -25,7 +27,6 @@ public class MainCharacter : MonoBehaviour {
 
 
         horizontal = (int)(Input.GetAxisRaw("Horizontal"))*2; //mult by 2 becuase otherwise values seemed too small If we want to do it tile based 2 can be our tile size
-
         vertical = (int)(Input.GetAxisRaw("Vertical"))*2;
 
         Vector3 move = new Vector3(horizontal-vertical, (horizontal+vertical)/2, 0);
