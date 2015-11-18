@@ -4,6 +4,7 @@ using System.Collections;
 public class Basic_Enemy : MonoBehaviour {
 	
 	public Transform target;
+	Transform permanent;
 	public Transform[] locations;
 	public Animator animator;
 	
@@ -18,10 +19,15 @@ public class Basic_Enemy : MonoBehaviour {
 	void Start () {
 		animator = this.GetComponent<Animator>();
 		StartCoroutine(Patrol());
+		permanent = target;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(target == null){
+			target = permanent;
+			active = false;
+		}
 		
 		if(active){
 			//Debug.Log("success");
@@ -94,7 +100,7 @@ public class Basic_Enemy : MonoBehaviour {
 	//decriments of hp
 	void OnCollisionEnter2D(Collision2D beta){
 		Debug.Log("smack");
-		if(beta.gameObject.tag == "weapon"||beta.gameObject.tag == "projectile"){
+		if(beta.gameObject.tag == "Weapon"||beta.gameObject.tag == "Projectile"){
 			hp-=1;
 		}
 		if(hp<=0){

@@ -31,6 +31,17 @@ public class Door : MonoBehaviour {
 		else{
 			this.GetComponent<Collider2D>().isTrigger = false;
 		}
+		
+		foreach(Lever lever in levers){
+			if (!lever.active){
+				open = false;
+				break;
+			}
+			else{
+				open = false;
+			}
+		}
+		
 	}
 	
 	//call when door gets opened or closed
