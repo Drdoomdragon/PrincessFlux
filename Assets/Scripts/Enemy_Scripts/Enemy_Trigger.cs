@@ -20,11 +20,11 @@ public class Enemy_Trigger : MonoBehaviour {
 		}
 		
 	public void OnTriggerEnter2D(Collider2D other){
-		if (other.gameObject.tag == "Player"){
+		/*if (other.gameObject.tag == "Player"){
 			Debug.Log("ayylmao");
 			enemy.active = true;
 			enemy.target = target;
-		}
+		}*/
 		if(other.gameObject.tag == "Decoy"){
 			enemy.target = target;
 			enemy.active = false;
@@ -39,14 +39,18 @@ public class Enemy_Trigger : MonoBehaviour {
 			enemy.active = false;
 		}
 	}
-	/*
+
 	void OnTriggerStay2D(Collider2D other){
 		if(other.gameObject.tag == "Player"){
-			RaycastHit2D hit = Physics2D.Raycast(transform.position, other.transform.position);
-			if(hit.collider.gameObject.tag == "Player"){
+			RaycastHit2D hit = Physics2D.CircleCast(transform.position, 1.5f, other.transform.position, 9f);
+			
+			if(hit.collider.tag == "Player"){
 				Debug.Log("I FOUND YOU!");
 				enemy.active = true;
 			}
+			else{
+				Debug.Log("Lost 'em...");
+			}
 		}
-	}*/
+	}
 }
