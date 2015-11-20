@@ -8,6 +8,8 @@ public class Enemy_Trigger : MonoBehaviour {
 	Transform target;
 	bool found = false;
 	
+	public Transform player;
+	
 	
 	// Use this for initialization
 	void Start () {
@@ -46,6 +48,7 @@ public class Enemy_Trigger : MonoBehaviour {
 			
 			if(hit.collider.tag == "Player"){
 				Debug.Log("I FOUND YOU!");
+				enemy.target = player;
 				enemy.active = true;
 			}
 			else{
